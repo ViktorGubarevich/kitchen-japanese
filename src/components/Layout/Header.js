@@ -2,11 +2,11 @@ import sushiImage from "../../assets/sushi.jpg";
 import styles from "./Header.module.css";
 import HeaderCardButton from "./HeaderCardButton";
 
-const Header = () => (
+const Header = ({onShowCart}) => (
   <>
     <header className={styles.header}>
       <h1>Японская Кухня</h1>
-      <HeaderCardButton />
+      <HeaderCardButton onClick={onShowCart} />
     </header>
     <div className={styles["main-image"]}>
       <img src={sushiImage} alt="Блюда японской кухни" />
