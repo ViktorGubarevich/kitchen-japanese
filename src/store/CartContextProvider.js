@@ -21,7 +21,7 @@ const cartReducer = (state, action) => {
   return defaultCartState;
 };
 
-const CarContextProvider = ({ children }) => {
+const CartContextProvider = ({ children }) => {
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -43,7 +43,7 @@ const CarContextProvider = ({ children }) => {
 
   const cartContext = {
     items: cartState.items,
-    totalAmoutn: cartState.totalAmount,
+    totalAmount: cartState.totalAmount,
     addItem: addItemHandler,
     removeItem: removeItemHandler,
   };
@@ -53,4 +53,4 @@ const CarContextProvider = ({ children }) => {
   );
 };
 
-export default CarContextProvider;
+export default CartContextProvider;
