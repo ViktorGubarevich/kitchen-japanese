@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
 import Modal from "../UI/Modal";
 import styles from "./Cart.module.css";
 import CartItem from "./CartItem";
+import SubmitOrder from "./SubmitOrder";
 
 const Cart = ({ onHideCart }) => {
   const cartContext = useContext(CartContext);
+  const [isSubmitOrderAvailable, setIsSubmitOrderAvailable] = useState(false);
 
   const totalAmount = `$${Math.abs(cartContext.totalAmount).toFixed(2)}`;
   const hasItems = cartContext.items.length > 0;
@@ -16,6 +18,10 @@ const Cart = ({ onHideCart }) => {
 
   const removeCartItemHandler = (id) => {
     cartContext.removeItem(id);
+  };
+
+  const orderHandler = () => {
+    setIsSubmitOrderAvailable(true);
   };
 
   const cartItems = (
@@ -33,6 +39,19 @@ const Cart = ({ onHideCart }) => {
     </ul>
   );
 
+  const modalButtons = (
+    <div className={styles.actions}>
+      <button className={styles["button--alt"]} onClick={onHideCart}>
+        Закрыть
+      </button>
+      {hasItems && (
+        <button className={styles.button} onClick={orderHandler}>
+          Заказать
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <Modal onHideCart={onHideCart}>
       {cartItems}
@@ -40,12 +59,8 @@ const Cart = ({ onHideCart }) => {
         <span>Итого</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={styles.actions}>
-        <button className={styles["button--alt"]} onClick={onHideCart}>
-          Закрыть
-        </button>
-        {hasItems && <button className={styles.button}>Заказать</button>}
-      </div>
+      {isSubmitOrderAvailable && <SubmitOrder onCancel={onHideCart} />}
+      {!isSubmitOrderAvailable && modalButtons}
     </Modal>
   );
 };

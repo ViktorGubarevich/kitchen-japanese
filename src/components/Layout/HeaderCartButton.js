@@ -31,11 +31,11 @@ const HeaderCartButton = ({ onClick }) => {
   }, [cartContext.items]);
 
   return (
-    <button className={buttonClasses}>
+    <button className={buttonClasses} onClick={onClick}>
       <span className={styles.icon}>
         <CartIcon />
       </span>
-      <span onClick={onClick}>Корзина</span>
+      <span>Корзина</span>
       <span className={styles.badge}>{cartItemsNumber}</span>
     </button>
   );
