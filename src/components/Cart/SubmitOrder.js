@@ -3,7 +3,7 @@ import styles from "./SubmitOrder.module.css";
 
 const isInputValid = (inputValue) => inputValue.trim() !== "";
 
-const SubmitOrder = ({ onCancel }) => {
+const SubmitOrder = ({ onCancel, onSubmit }) => {
   const [formValidity, setFormValidity] = useState({
     name: true,
     city: true,
@@ -37,6 +37,12 @@ const SubmitOrder = ({ onCancel }) => {
     if (!isFormValid) {
       return;
     }
+
+    onSubmit({
+      name: enteredName,
+      city: enteredCity,
+      address: enteredAddress,
+    });
   };
 
   const nameInputClasses = `${styles.control} ${
